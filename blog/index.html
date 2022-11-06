@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>itdragons技术栈</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="description" content="Description">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+	<link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_539333_ah8wb2hv6yknvcxr.css">
+	<style type="text/css">
+		section.cover .cover-main {z-index: 100;}
+		
+		section.cover.has-mask .mask {
+			background-image: linear-gradient(hsla(0, 0%, 100%, 0.25), hsla(0, 0%, 100%, 0.25));
+			background-color: transparent;
+			opacity: 1
+		}
+		
+		.sidebar{padding-top: 0px;}
+
+        div#app:empty:before {
+            content: "";
+        }
+	</style>
+ </head>
+<body>
+    <div id="app">加载中，请稍后...</div>
+<script>
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?dddab841cad883442835f1d60edd7525";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<script>
+	var gitalkConfig = {
+        clientID: '12f72e876950332f0916',
+        clientSecret: '02d67d1e934a0a23d5f50daf5005e0fccc0ca50a',
+        accessToken: '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',
+        repo: 'itdragons.github.io',
+        owner: 'itdragons',
+        admin: ["itdragons"],
+        distractionFreeMode: false
+    };
+    window.$docsify = {
+        name: 'itdragons技术栈', //文档标题，显示在侧栏顶部
+        nameLink: '/blog/', //点击文档标题后跳转的链接地址。
+        // routerMode: 'history', //设置路由模式,设置为 history，如果使用的是 Nginx 部署的项目，一定要加上配置(try_files $uri $uri/ /index.html;)，否则在非首页刷新会找不到页面。
+        //repo: 'https://github.com/itdragons/blog', //GitHub Corner 挂件
+        auto2top: true, //切换页面后是否自动跳转到页面顶部
+        coverpage: 'coverpage.md', //是否启用封面页,_coverpage.md
+        // loadSidebar: 'sidebar.md', //加载自定义侧边栏
+        loadNavbar: 'navbar.md', //加载导航栏
+        maxLevel: 4, //最大支持渲染的标题层级
+        subMaxLevel: 5, //自定义侧边栏后默认不会再生成目录，需要通过设置生成目录的最大层级开启这个功能。
+        themeColor: '#25798A',
+        search: {
+            paths: 'auto',
+            placeholder: '🔍 Search',
+            noData: '😞 Not Found ',
+            depth: 6  //搜索标题的最大程级, 1 - 6
+        },
+        pagination: {
+            previousText: 'PREVIOUS',
+            nextText: 'NEXT',
+            crossChapter: true
+        },
+        copyCode: {
+            buttonText: 'copy',
+            errorText: 'Error',
+            successText: 'Success'
+        },
+        plugins: [function (hook, vm) {
+            hook.doneEach(function () {
+                var label, domObj, main, divEle, gitalk;
+                label = vm.route.path.split("/").pop();
+                domObj = Docsify.dom;
+                main = domObj.getNode("#main");
+
+                Array.apply(null, document.querySelectorAll("div.gitalk-container")).forEach(function (ele) {
+                    ele.remove();
+                });
+
+                divEle = domObj.create("div");
+                divEle.id = "gitalk-container-" + label;
+                divEle.className = "gitalk-container";
+                divEle.style = "width: " + main.clientWidth + "px; margin: 0 auto 20px;";
+                domObj.appendTo(domObj.find(".content"), divEle);
+                gitalk = new Gitalk(Object.assign(gitalkConfig, {
+                    id: !label ? "home" : label
+                }));
+                gitalk.render("gitalk-container-" + label);
+            });
+        }]
+    }
+</script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<!--评论插件-->
+<script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<!--分页导航-->
+<script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+<!--代码高亮-->
+<script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-java.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-json.min.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-javascript.min.js"></script>
+<!--全文搜索,直接用官方提供的无法生效-->
+<script src="https://cdn.bootcss.com/docsify/4.5.9/plugins/search.min.js"></script>
+<!-- 复制到剪贴板 -->
+<script src="//unpkg.com/docsify-copy-code"></script>
+<!-- 图片缩放 -->
+<script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
+</body>
+
+</html>
